@@ -455,3 +455,5 @@ expansion:
     lands:
       no-entry: *noEntryMessage
       war-disable-newbie-protection: "<red>PvP is now force enabled due to a war declaration.</red>"
+
+assist_kill: "<yellow>You assisted in killing {enemy}. You dealt {percentage}% of the damage.</yellow>"

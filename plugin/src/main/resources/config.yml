@@ -123,6 +123,9 @@ forgive-request-expire: 10
 # What is the minimum server TPS to allow tagging?
 minimum-tps: 15.0
 
+# Minimum percentage of damage to receive an assist.
+minimum_assist_damage: 30
+
 ## END OF CONFIG.YML
 ## YOU ARE NOT FINISHED
 ## Don't forget to configure your expansions and other files

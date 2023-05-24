@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.github.sirblobman.combatlogx.api.assists.IAssistManager;
+import com.github.sirblobman.combatlogx.assists.AssistManager;
 import org.jetbrains.annotations.NotNull;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -63,6 +65,7 @@ public final class CombatPlugin extends ConfigurablePlugin implements ICombatLog
     private final DeathManager deathManager;
     private final ForgiveManager forgiveManager;
     private final CrystalManager crystalManager;
+    private final AssistManager assistManager;
 
     private final MainConfiguration configuration;
     private final CommandConfiguration commandConfiguration;
@@ -77,6 +80,7 @@ public final class CombatPlugin extends ConfigurablePlugin implements ICombatLog
         this.deathManager = new DeathManager(this);
         this.forgiveManager = new ForgiveManager(this);
         this.crystalManager = new CrystalManager(this);
+        this.assistManager = new AssistManager(this);
 
         this.configuration = new MainConfiguration(this);
         this.commandConfiguration = new CommandConfiguration();
@@ -238,7 +242,12 @@ public final class CombatPlugin extends ConfigurablePlugin implements ICombatLog
         return this.crystalManager;
     }
 
-    @Override
+  @Override
+  public IAssistManager getAssistManager() {
+    return assistManager;
+  }
+
+  @Override
     public @NotNull String getKeyName() {
         return "combatlogx";
     }

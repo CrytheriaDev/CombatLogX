@@ -1,5 +1,6 @@
 package com.github.sirblobman.combatlogx.api;
 
+import com.github.sirblobman.combatlogx.api.assists.IAssistManager;
 import org.jetbrains.annotations.NotNull;
 
 import com.github.sirblobman.api.configuration.IResourceHolder;
@@ -115,4 +116,6 @@ public interface ICombatLogX extends IResourceHolder, IMultiVersionPlugin {
     @NotNull PunishConfiguration getPunishConfiguration();
 
     @NotNull ICrystalManager getCrystalManager();
+
+    IAssistManager getAssistManager();
 }

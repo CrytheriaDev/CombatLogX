@@ -11,12 +11,12 @@
 ## More information about MiniMessage can be found here:
 ## https://docs.adventure.kyori.net/minimessage/format.html
 #The language code for this file.
-language-name: "fr_us"
+language-name: "fr_fr"
 #The format for decimal numbers.
 #The United States uses the number and two decimal places
 decimal-format: "0.00"
-#The prefix for CombatLogX.
-#This is shown in front of all messages and should not be changed unless necessary.
+#The prefix for CombatLogX that is shown in front of all messages.
+#Note to translators: Do not change this message.
 prefix: "<white><bold>[<gold>CombatLogX</gold>]</bold></white>"
 broadcast:
   #Shown when the plugin is finished loading.

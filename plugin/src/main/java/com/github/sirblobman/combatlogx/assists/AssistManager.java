@@ -16,7 +16,6 @@ public class AssistManager implements IAssistManager {
 
   public AssistManager(ICombatLogX plugin) {
     this.plugin = plugin;
-    new AssistListener(plugin, this).register();
   }
 
   public Map<UUID, Double> getDamagedBy(UUID player) {

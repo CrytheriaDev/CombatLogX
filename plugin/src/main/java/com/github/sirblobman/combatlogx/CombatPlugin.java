@@ -1,60 +1,42 @@
 package com.github.sirblobman.combatlogx;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.github.sirblobman.combatlogx.api.assists.IAssistManager;
-import com.github.sirblobman.combatlogx.assists.AssistManager;
-import org.jetbrains.annotations.NotNull;
-
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import com.github.sirblobman.api.configuration.ConfigurationManager;
 import com.github.sirblobman.api.core.CorePlugin;
 import com.github.sirblobman.api.language.Language;
 import com.github.sirblobman.api.language.LanguageManager;
 import com.github.sirblobman.api.plugin.ConfigurablePlugin;
+import com.github.sirblobman.api.shaded.bstats.bukkit.Metrics;
+import com.github.sirblobman.api.shaded.bstats.charts.SimplePie;
 import com.github.sirblobman.api.update.SpigotUpdateManager;
 import com.github.sirblobman.api.utility.VersionUtility;
 import com.github.sirblobman.combatlogx.api.ICombatLogX;
+import com.github.sirblobman.combatlogx.api.assists.IAssistManager;
 import com.github.sirblobman.combatlogx.api.configuration.CommandConfiguration;
 import com.github.sirblobman.combatlogx.api.configuration.MainConfiguration;
 import com.github.sirblobman.combatlogx.api.configuration.PunishConfiguration;
 import com.github.sirblobman.combatlogx.api.expansion.ExpansionManager;
-import com.github.sirblobman.combatlogx.api.manager.ICombatManager;
-import com.github.sirblobman.combatlogx.api.manager.ICrystalManager;
-import com.github.sirblobman.combatlogx.api.manager.IDeathManager;
-import com.github.sirblobman.combatlogx.api.manager.IForgiveManager;
-import com.github.sirblobman.combatlogx.api.manager.IPlaceholderManager;
-import com.github.sirblobman.combatlogx.api.manager.IPunishManager;
-import com.github.sirblobman.combatlogx.api.manager.ITimerManager;
+import com.github.sirblobman.combatlogx.api.manager.*;
 import com.github.sirblobman.combatlogx.api.object.UntagReason;
+import com.github.sirblobman.combatlogx.assists.AssistListener;
+import com.github.sirblobman.combatlogx.assists.AssistManager;
 import com.github.sirblobman.combatlogx.command.CommandCombatTimer;
 import com.github.sirblobman.combatlogx.command.CommandTogglePVP;
 import com.github.sirblobman.combatlogx.command.combatlogx.CommandCombatLogX;
 import com.github.sirblobman.combatlogx.configuration.ConfigurationChecker;
-import com.github.sirblobman.combatlogx.listener.ListenerConfiguration;
-import com.github.sirblobman.combatlogx.listener.ListenerDamage;
-import com.github.sirblobman.combatlogx.listener.ListenerDeath;
-import com.github.sirblobman.combatlogx.listener.ListenerEndCrystal;
-import com.github.sirblobman.combatlogx.listener.ListenerInvulnerable;
-import com.github.sirblobman.combatlogx.listener.ListenerPunish;
-import com.github.sirblobman.combatlogx.listener.ListenerUntag;
-import com.github.sirblobman.combatlogx.manager.CombatManager;
-import com.github.sirblobman.combatlogx.manager.CrystalManager;
-import com.github.sirblobman.combatlogx.manager.DeathManager;
-import com.github.sirblobman.combatlogx.manager.ForgiveManager;
-import com.github.sirblobman.combatlogx.manager.PlaceholderManager;
-import com.github.sirblobman.combatlogx.manager.PunishManager;
+import com.github.sirblobman.combatlogx.listener.*;
+import com.github.sirblobman.combatlogx.manager.*;
 import com.github.sirblobman.combatlogx.placeholder.BasePlaceholderExpansion;
 import com.github.sirblobman.combatlogx.task.TimerUpdateTask;
 import com.github.sirblobman.combatlogx.task.UntagTask;
-import com.github.sirblobman.api.shaded.bstats.bukkit.Metrics;
-import com.github.sirblobman.api.shaded.bstats.charts.SimplePie;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class CombatPlugin extends ConfigurablePlugin implements ICombatLogX {
     private final TimerUpdateTask timerUpdateTask;
@@ -269,7 +251,8 @@ public final class CombatPlugin extends ConfigurablePlugin implements ICombatLog
         new ListenerPunish(this).register();
         new ListenerUntag(this).register();
         new ListenerDeath(this).register();
-        new ListenerInvulnerable(this).register();
+      new ListenerInvulnerable(this).register();
+      new AssistListener(this, assistManager).register();
 
         int minorVersion = VersionUtility.getMinorVersion();
         if (minorVersion > 13) {
